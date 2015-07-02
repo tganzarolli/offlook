@@ -1,20 +1,14 @@
 require 'time'
-
+require_relative 'lib/exchanger'
 require_relative 'lib/calendar_item'
+require_relative 'lib/google_calendar'
 
-def fetch_outlook()
-  user = "***REMOVED***"
-  pass = ""
-  endpoint = "***REMOVED***"
-  cli = Viewpoint::EWSClient.new endpoint, user, pass, :http_opts => {:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE}
-  start_time = DateTime.parse("2015-06-26").iso8601
-  end_time = DateTime.parse("2015-07-04").iso8601
-
-  calendar = cli.get_folder(:calendar)
-
-
-
-  calendar.items_since(DateTime.parse("2015-06-26")).first
+def synch()
+  exchanger = Exchanger.new
+  google_calendar = GoogleCalendar.new
+  items = exchanger.list_calendar_items_since(Date.today)
+  p items.first
+  #items.each { |item| CalendarItem.synch_and_save(item) {|item| google_calendar.save(item) } }
 end
 
-
+synch()
