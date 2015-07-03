@@ -1,5 +1,5 @@
 # Offlook
-# Dependências
+# Pre-requisites
 1. MongoDB
 2. Ruby
 3. To create your credentials file
