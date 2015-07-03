@@ -16,4 +16,8 @@ class Exchanger
     calendar.items_since(date)
   end
 
+  def list_calendar_items_between(start_date, end_date)
+    calendar = @cli.get_folder(:calendar)
+    calendar.items_between(start_date, end_date)
+  end
 end

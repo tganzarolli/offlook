@@ -11,7 +11,7 @@ class CalendarItem
   field :start, type: DateTime
   field :end, type: DateTime
   
-  validates_inclusion_of :my_response, in: [ 'Accept', 'Reject',  'Tentative' ]
+  validates_inclusion_of :my_response, in: [ 'Accept', 'Tentative', 'Organizer', 'Decline', 'NoResponseReceived', 'Unknown' ]
   validates_uniqueness_of :outlook_id
   validates_uniqueness_of :google_id
   
