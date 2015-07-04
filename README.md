@@ -17,8 +17,6 @@
 
 
 ##TODO:
-* Command line options
-* Option to go back in time
 * Deletion
 * More recurrence tests
 * Mock APIs for better testing

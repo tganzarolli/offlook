@@ -20,6 +20,15 @@ class GoogleCalendarWrapper
     @cal = nil
   end
   
+  def login_with_token
+    # Create an instance of the calendar.
+    @cal = Google::Calendar.new(:client_id => @@config['client_id'],
+                             :client_secret => @@config['client_secret'],
+                             :calendar      => @@config['calendar_id'],
+                             :refresh_token => @@config['refresh_token'],
+                             :redirect_url  => "urn:ietf:wg:oauth:2.0:oob") # this is what Google uses for 'applications'
+  end
+
   def login_with_or_without_token
     params = {}
     if @@config['refresh_token']
