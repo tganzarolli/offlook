@@ -5,8 +5,8 @@
 * Copy the file to ~/Library/LaunchAgents/
 ### Double-check permissions and setup
 Make sure the .sh files on this project's bin folder have the right permissions:
-```chmod -R 755 bin```
-Run: 
+```chmod -R 755 ./bin```
+* Run: 
 ```bin/install.sh```
 ### Load: 
 ```launchctl load -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist```
