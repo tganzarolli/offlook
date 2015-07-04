@@ -14,4 +14,9 @@
 ```MONGOID_ENV=development rspec ./specs/```
 
 ##Known bugs:
-* Recurrence is not working, because the event only apperas once. It's needed to replicate manually.
+
+
+##TODO:
+* Command line options
+* Option to go back in time
+* Deletion

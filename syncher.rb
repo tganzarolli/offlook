@@ -15,7 +15,7 @@ def synch(incremental=false)
     items = exchanger.list_calendar_items_between(Date.today, Date.today + 90)
   end
 
-  items.each { |item| CalendarItem.synch_and_save(item) {|item| google_calendar.save(item); p item} }
+  items.each { |item| CalendarItem.synch_and_save(item) {|item| p item; google_calendar.save(item)} }
 
 end
 

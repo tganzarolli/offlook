@@ -1,5 +1,6 @@
 require_relative 'config_store'
 require 'viewpoint'
+require 'time'
 
 class Exchanger
 
@@ -20,4 +21,6 @@ class Exchanger
     calendar = @cli.get_folder(:calendar)
     calendar.items_between(start_date, end_date)
   end
+  
+
 end

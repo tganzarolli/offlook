@@ -1,4 +1,17 @@
 require 'google_calendar'
+require 'timezone_parser'
+
+#monkey patch
+module Google
+  class Event
+    def local_timezone_json
+      tz = Time.now.zone
+      tz_name = TimezoneParser::getTimezones(tz).last
+      ",\"timeZone\" : \"#{tz_name}\""
+    end
+  end
+end
+
 class GoogleCalendarWrapper
   
   TRANSLATOR = {'Accept' => 'confirmed', 'Tentative' => 'tentative', 'Decline' => 'cancelled', 'Organizer' => 'confirmed'}
@@ -39,6 +52,7 @@ class GoogleCalendarWrapper
       e.start_time = cal_item.start.to_time
       e.end_time = cal_item.end.to_time
       e.location = cal_item.location
+      e.recurrence = cal_item.recurrence
       e.reminders = {'useDefault'  => false, 'overrides' => [{'method' => "popup", 'minutes' => 30}, {'method' => "sms", 'minutes' => 15}]}
       e.description = "Organizer: #{cal_item.organizer_name}. My response: #{cal_item.my_response}"
     end
