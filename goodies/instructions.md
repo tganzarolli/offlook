@@ -5,25 +5,33 @@
 * Copy the file to ~/Library/LaunchAgents/
 ### Double-check permissions and setup
 Make sure the .sh files on this project's bin folder have the right permissions:
-```chmod -R 755 ./bin```
-* Run: 
-```bin/install.sh```
-### Load: 
-```launchctl load -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist```
 
-## How-to
+`chmod -R 755 ./bin`
+
+* Run:
+
+`./bin/install.sh`
+
+### Load
+`launchctl load -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist`
+
 ### Unload
-```launchctl unload -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist```
+`launchctl unload -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist`
 
 ## To debug:
-```sudo launchctl log level debug```
-```tail -f /var/log/system.log```
+`sudo launchctl log level debug`
+
+`tail -f /var/log/system.log`
+
 When done, return things to normal:
-```sudo launchctl log level error```
+
+`sudo launchctl log level error`
 
 ### Or
 Include this lines on the plist file, unload and load again. This will redirect every output and error to your first terminal:
-```<key>StandardOutPath</key>
+```
+   <key>StandardOutPath</key>
    <string>/dev/ttys000</string>
    <key>StandardErrorPath</key>
-   <string>/dev/ttys000</string>```
+   <string>/dev/ttys000</string>
+```
