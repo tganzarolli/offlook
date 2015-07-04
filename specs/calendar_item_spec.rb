@@ -4,7 +4,7 @@ class Organizer
   attr_accessor :name
 end
 class Item
-  attr_accessor :start,:end,:location,:organizer,:my_response_type,:subject,:id
+  attr_accessor :start,:end,:location,:organizer,:my_response_type,:subject,:id, :recurrence
 end
 
 

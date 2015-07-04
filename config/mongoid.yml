@@ -1,6 +1,18 @@
 development:
   sessions:
     default:
+      database: offlook_dev
+      hosts:
+        - localhost:27017
+test:
+  sessions:
+    default:
+      database: offlook_test
+      hosts:
+        - localhost:27017
+production:
+  sessions:
+    default:
       database: offlook
       hosts:
         - localhost:27017
