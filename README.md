@@ -6,7 +6,7 @@
   1. Get your exchange credentials from Outlook.
   2. Create a Google App with Calendar access and copy the credentials.
   3. On your Google Calendar left panel, go to the Settings of a specific calendar and copy that id.
-  4. That are two credentials sample files, just clone those files removing the *_sample* suffix then fill with correct data.
+  4. There are two credentials sample files, just clone those files removing the *_sample* suffix then fill with correct data.
 
 ## To run
 * To display the help text:
