@@ -10,16 +10,15 @@ class GoogleCalendarWrapper
   def login_with_or_without_token
     params = {}
     if @@config['refresh_token']
-      params[:refesh_token] = @@config['refresh_token']
+      params[:refresh_token] = @@config['refresh_token']
     end
-
     # Create an instance of the calendar.
     @cal = Google::Calendar.new(params.merge!(:client_id => @@config['client_id'],
-                               :client_secret => @@config['client_secret'],
-                               :calendar      => @@config['calendar_id'],
-                               :redirect_url  => "urn:ietf:wg:oauth:2.0:oob") # this is what Google uses for 'applications'
-                               )
-
+                             :client_secret => @@config['client_secret'],
+                             :calendar      => @@config['calendar_id'],
+                             :redirect_url  => "urn:ietf:wg:oauth:2.0:oob") # this is what Google uses for 'applications'
+    )
+    
     if !@@config['refresh_token']
 
       # A user needs to approve access in order to work with their calendars.
@@ -35,13 +34,13 @@ class GoogleCalendarWrapper
   end
   
   def save(cal_item)
-    event = @cal.create_event do |e|
+    event = @cal.find_or_create_event_by_id(cal_item.google_id) do |e|
       e.title = cal_item.subject
       e.start_time = cal_item.start.to_time
       e.end_time = cal_item.end.to_time
       e.location = cal_item.location
-      e.description = "My response: #{TRANSLATOR[cal_item.my_response]}"
-      e.creator_name = cal_item.organizer_name
+      e.reminders = {'useDefault'  => false, 'overrides' => [{'method' => "popup", 'minutes' => 30}, {'method' => "sms", 'minutes' => 15}]}
+      e.description = "Organizer: #{cal_item.organizer_name}. My response: #{cal_item.my_response}"
     end
     event.id
   end

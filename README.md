@@ -15,4 +15,3 @@
 
 ##Known bugs:
 * Recurrence is not working, because the event only apperas once. It's needed to replicate manually.
-* Access token expiring quickly.
