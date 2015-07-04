@@ -11,8 +11,8 @@
 ## To run
 * To display the help text:
 ```./syncher.rb -h```
-* You can install everything from /bin if you have rvm.
-* Also, look inside goodies for ways to schedule this script on OSX.
+* Look inside goodies for ways to schedule this script on OSX.
+* Also, you can setup and install everything with `./bin/install.sh` if you have rvm.
 
 ## To test
 ```MONGOID_ENV=test rspec ./specs/```
