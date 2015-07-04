@@ -1,0 +1,1 @@
+/bin/bash --login -c "rvm gemset use offlook --create; gem install bundler --no-ri --no-rdoc; bundle"
