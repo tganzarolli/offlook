@@ -18,7 +18,20 @@ item.my_response_type = 'Accept'
 item.subject = '333'
 item.id = "asasasasas12121212111ddd"
 
+RSpec::Expectations.configuration.warn_about_potential_false_positives = false
+
 describe CalendarItem do
+
+  before(:all) do
+    if ENV['MONGOID_ENV'] != 'test'
+      puts "Refusing to run tests with the environment: #{ENV['MONGOID_ENV']}"
+      exit
+    end
+  end
+
+  after(:each) do
+    Mongoid.purge!
+  end
 
   subject do
     described_class.new(:start => item.start, :end => item.end, :subject => item.subject,
@@ -33,5 +46,19 @@ describe CalendarItem do
       it { expect(created.attributes.delete(:_id)).to eq(subject.attributes.delete(:_id)) }
     end
 
+  end
+  describe 'validate google_id nil' do
+    context 'without exception trace' do
+      item.id += '1'
+      it { expect {described_class.synch_and_save(item) {|cal_item| nil }}.to raise_error(Mongoid::Errors::Validations) }
+    end
+    context 'with exception trace' do
+      item.id += '2'
+      it { expect {described_class.synch_and_save(item) {|cal_item| cal_item.exception = 'Sometrace'; nil }}.not_to raise_error(Mongoid::Errors::Validations) }
+    end
+    context 'with exception trace' do
+      item.id += '3'
+      it { expect {described_class.synch_and_save(item) {|cal_item| throw Exception.new }}.not_to raise_error(Mongoid::Errors::Validations) }
+    end
   end
 end

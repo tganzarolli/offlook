@@ -21,7 +21,7 @@ def synch(auto=true, full=false, verbose=false)
   today = Date.today
   items = (full) ? exchanger.list_calendar_items_between(today - 180, today + 180) : exchanger.list_calendar_items_since(today)
 
-  items.each { |item| CalendarItem.synch_and_save(item) {|item| p item if verbose; google_calendar.save(item)} }
+  items.each { |item| CalendarItem.synch_and_save(item, verbose) {|item| p item.to_json if verbose; google_calendar.save(item)} }
 end
 
 options = {}

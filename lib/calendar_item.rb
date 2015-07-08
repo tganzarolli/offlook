@@ -11,12 +11,15 @@ class CalendarItem
   field :start, type: DateTime
   field :end, type: DateTime
   field :recurrence, type: Hash
+  field :exception, type: String
   
   validates_inclusion_of :my_response, in: [ 'Accept', 'Tentative', 'Organizer', 'Decline', 'NoResponseReceived', 'Unknown' ]
+  validates_presence_of :outlook_id
+  validates_presence_of :google_id, :unless => :exception
   validates_uniqueness_of :outlook_id
-  validates_uniqueness_of :google_id
+  validates_uniqueness_of :google_id, :allow_nil => true
   
-  def self.synch_and_save(item)
+  def self.synch_and_save(item, verbose=false)
 
     cal_item = self.where(:outlook_id => item.id).first || self.new
     
@@ -26,7 +29,17 @@ class CalendarItem
     cal_item.set_recurrence(item)
       
     if cal_item.new_record? || cal_item.changed?
-      cal_item.google_id = yield cal_item
+      begin
+        cal_item.google_id = yield cal_item
+      rescue => e
+        trace = e.backtrace.join("\n\t")
+        message = "Error during processing: #{$!}"
+        if verbose
+          puts message
+          puts "Backtrace:\n\t#{trace}"
+        end
+        cal_item.exception = message
+      end
       cal_item.save!
     end
     cal_item
