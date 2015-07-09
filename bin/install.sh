@@ -12,6 +12,6 @@ echo "Setting up Google credentials and performing initial full synch. This may 
 echo "Schedulling partial synch to run every hour"
 dir=$`pwd`
 sed -e s/FILL_WITH_YOUR_USER/`whoami`/g goodies/com.zerowidth.launched.offlook.plist | sed -e  "s/FILL_WITH_YOUR_PATH/${dir//\//\\/}/g" > /tmp/com.zerowidth.launched.offlook.plist
-cp /tmp/com.zerowidth.launched.offlook.plist ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist
+mv /tmp/com.zerowidth.launched.offlook.plist ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist
 launchctl load -w ~/Library/LaunchAgents/com.zerowidth.launched.offlook.plist
 echo "All set. Enjoy!"

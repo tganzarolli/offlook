@@ -17,10 +17,11 @@ if [ -z "`mongo -version | grep version`" ]; then
 	ln -s /usr/local/mongodb/3.0.4/bin/mongo /usr/local/bin/mongo
 	echo "Creating log directories"
 	sudo mkdir /var/log/mongodb
-	sudo chmod 777 /var/log/mongodb
+	sudo chmod -R 777 /var/log/mongodb
 	echo "Launching MongoDB and making it default at startup"
 	cd -
-	sudo cp ./goodies/mongodb.plist /Library/LaunchDaemons/
+	sed -e s/FILL_WITH_YOUR_USER/`whoami`/g goodies/mongodb.plist > /tmp/mongodb.plist
+	sudo mv /tmp/mongodb.plist /Library/LaunchDaemons/
 	chown root /Library/LaunchDaemons/mongodb.plist
 	sudo launchctl load /Library/LaunchDaemons/mongodb.plist
 else
