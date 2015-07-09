@@ -1,5 +1,6 @@
 #!/bin/bash
- if [ -z "`mongo -version | grep version`" ]; then
+if [ -z "`mongo -version | grep version`" ]; then
+	echo "Installing MongoDB"
 	cd /tmp
 	echo "Downloading MongoDB"
 	curl https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.0.4.tgz > mongodb.tgz

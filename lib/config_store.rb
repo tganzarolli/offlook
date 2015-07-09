@@ -16,6 +16,7 @@ class ConfigStore
   end
   
   def []=(key, value)
+    load
     @config[key] = value
   end
   

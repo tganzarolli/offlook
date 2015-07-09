@@ -1,2 +1,3 @@
 config/credentials.yml
 config/google_credentials.yml
+.DS_Store

@@ -28,6 +28,19 @@ class GoogleCalendarWrapper
                              :refresh_token => @@config['refresh_token'],
                              :redirect_url  => "urn:ietf:wg:oauth:2.0:oob") # this is what Google uses for 'applications'
   end
+  
+  def self.setup_calendar()
+    config ||= ConfigStore.new('config/google_credentials.yml')
+    puts "Enter your calendar id. This must copied from your calendar settings."
+    puts "Current one is: #{config['calendar_id']}" if config['calendar_id']
+    input = $stdin.gets.chomp
+    if !input.empty?
+      config['calendar_id'] = input
+    else
+      puts "WARNING: No information supplied!!"
+    end
+    config.save
+  end
 
   def login_with_or_without_token
     params = {}
@@ -44,9 +57,12 @@ class GoogleCalendarWrapper
     if !@@config['refresh_token']
 
       # A user needs to approve access in order to work with their calendars.
-      puts "Visit the following web page in your browser and approve access."
-      puts @cal.authorize_url
-      puts "\nCopy the code that Google returned and paste it here:"
+      puts "Visit the following web page in your browser and approve access. Pressing enter will get you there.\n\n"
+      url = @cal.authorize_url
+      puts url
+      $stdin.gets.chomp
+      system "open \"#{url}\""
+      puts "\nThen copy the code that Google returned and paste it here:"
 
       # Pass the ONE TIME USE access code here to login and get a refresh token that you can use for access from now on.
       refresh_token = @cal.login_with_auth_code( $stdin.gets.chomp )
