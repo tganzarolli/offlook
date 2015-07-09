@@ -20,7 +20,6 @@
 ##Known bugs:
 
 ##TODO:
-* Ask for CalendarId
 * Deletion
 * More recurrence tests
 * Mock APIs for better testing
