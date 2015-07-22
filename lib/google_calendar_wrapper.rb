@@ -1,6 +1,8 @@
 require 'google_calendar'
 require 'timezone_parser'
 
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
 #monkey patch
 module Google
   class Event
